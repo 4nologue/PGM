@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Number QR Code Generator</title>
+  <!-- ใช้ CDN ของ Google เพื่อโหลดไลบรารี QRCode -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+</head>
+<body>
+  <h1>Random Number QR Code Generator</h1>
+  <div id="qrcode"></div>
+  <button onclick="generateAndDisplayQR()">Generate QR Code</button>
+
+  <script>
+    function generateUniqueNumber() {
+      var numbers = []; // สร้างอาร์เรย์เพื่อเก็บตัวเลขที่สุ่มได้แล้ว
+
+      // เตรียมตัวเลขทั้งหมดจาก 1 ถึง 40
+      for (var i = 1; i <= 40; i++) {
+        numbers.push(i);
+      }
+
+      // สุ่มตัวเลขและลบออกจากอาร์เรย์
+      var index = Math.floor(Math.random() * numbers.length);
+      var randomNumber = numbers.splice(index, 1)[0];
+
+      return randomNumber;
+    }
+
+    function generateAndDisplayQR() {
+      var number = generateUniqueNumber();
+      var qrCodeDiv = document.getElementById('qrcode');
+      qrCodeDiv.innerHTML = ''; // Clear previous QR code
+
+      new QRCode(qrCodeDiv, {
+        text: number.toString(),
+        width: 128,
+        height: 128
+      });
+    }
+  </script>
+</body>
+</html>
